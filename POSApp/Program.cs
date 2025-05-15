@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using POSApp.Components;
 using POSApp.Components.Account;
 using POSApp.Data;
+using Radzen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,8 +45,7 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
     .AddSignInManager()
     .AddDefaultTokenProviders();
 
-//builder.Services.AddRazorComponents();
-builder.Services.AddScoped<Radzen.ThemeService>();
+builder.Services.AddRadzenComponents();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
