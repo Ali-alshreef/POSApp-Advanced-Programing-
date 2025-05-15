@@ -1,82 +1,60 @@
 ﻿@inherits LayoutComponentBase
+@inject NavigationManager nv
 <RadzenLayout>
-
-
     <RadzenHeader>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0">
-            <RadzenSidebarToggle Click="@(() => sidebarExpanded = !sidebarExpanded)" />
-            <RadzenLabel Text="ali Alshareef 15463316163" />
+            <RadzenSidebarToggle Click="sidBarClic" />
+                <h3>Ali alshareef</h3>
         </RadzenStack>
     </RadzenHeader>
 
-
-
     <RadzenSidebar Responsive="false" Style="width: max-content">
         
-        <RadzenPanelMenu DisplayStyle="@(sidebarExpanded ? MenuItemDisplayStyle.IconAndText : MenuItemDisplayStyle.Icon)" ShowArrow="false">
+        <RadzenPanelMenu DisplayStyle="Display()" ShowArrow="false">
 
-            <RadzenPanelMenuItem Text="Overview" Icon="home" Path="/" />
-
+            <RadzenPanelMenuItem Text="My Text" Icon="home" Path="/" />
             <RadzenPanelMenuItem Text="Counter" Icon="local_shipping" Path="/counter" />
             <RadzenPanelMenuItem Text="Weather" Icon="rainy" Path="/weather" />
 
-
             <RadzenPanelMenuItem Text="UI Fundamentals" Icon="auto_awesome">
-                <RadzenPanelMenuItem Text="Themes" Icon="color_lens" />
-                <RadzenPanelMenuItem Text="Colors" Icon="invert_colors" />
+                <RadzenPanelMenuItem Text="Counter" Icon="local_shipping" Path="/counter" />
             </RadzenPanelMenuItem>
         </RadzenPanelMenu>
-    
     </RadzenSidebar>
-  
+
     <RadzenBody>
         <div class="rz-p-4">
             @Body
         </div>
     </RadzenBody>
-
-
     <RadzenFooter>
-        Footer
+        <RadzenButton Click=GoToUrl Icon="search" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Medium" class="rz-border-radius-10 rz-shadow-4" />
+        <h5 class="text-center">حقوق النشر 2025</h5>
     </RadzenFooter>
-
-
 </RadzenLayout>
 @code{
-    bool sidebarExpanded = true;
-
+    bool SBE = true;
+    void GoToUrl()
+    {
+        nv.NavigateTo("https://www.facebook.com/alddeyafa/?locale=ar_AR", true);
+    }
+    MenuItemDisplayStyle Display()
+    {
+        if (SBE)
+        {
+            return MenuItemDisplayStyle.IconAndText;
+        }
+        return MenuItemDisplayStyle.Icon;
+    }
     void sidBarClic()
     {
-        if (sidebarExpanded)
+        if (SBE)
         {
-            sidebarExpanded = false;
+            SBE = false;
         }
         else
         {
-            sidebarExpanded = true;
+            SBE = true;
         }
     }
 }
-
-
-@* <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
-
-<div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
-</div> *@
