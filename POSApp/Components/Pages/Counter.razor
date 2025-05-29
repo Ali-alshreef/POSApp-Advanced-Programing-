@@ -1,4 +1,7 @@
 ﻿@page "/counter"
+@using POSApp.Data
+@using POSApp.Models
+@inject ApplicationDbContext dbContext;
 @rendermode InteractiveServer
 
 <PageTitle>Counter</PageTitle>
@@ -9,15 +12,27 @@
 <p role="status">Current count: currentCount</p>
 
 <RadzenButton Click=IncrementCount Icon="smartphone" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" class="rz-border-radius-10 rz-shadow-4" />
+<RadzenButton Click=AddProduct Text="إضافة" Icon="smartphone" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" class="rz-border-radius-10 rz-shadow-4" />
 <button class="btn btn-primary" @onclick="IncrementCount">Click me
 
 </button>
 
 @code {
     private int currentCount = 0;
-
     private void IncrementCount()
     {
         currentCount++;
+    }
+    private void AddProduct()
+    {
+        Product p = new Product();
+        p.Name = "wrewrwe";
+        p.Barcode = "e6456547";
+        p.Price = 6;
+
+       
+            string q = " insert into Productt values()";
+        dbContext.Products.Add(p);
+        dbContext.SaveChanges();
     }
 }
