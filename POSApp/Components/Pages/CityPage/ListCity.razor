@@ -1,0 +1,41 @@
+﻿@page "/Cities"
+@using POSApp.Data
+@using POSApp.Models
+@rendermode InteractiveServer
+@inject DialogService dialogService
+@inject ApplicationDbContext db;
+
+<h1>List Of Cities </h1>
+
+<RadzenCard>
+    <RadzenTextBox @bind-Value=c.CityName Placeholder="City Name" Style="width: 100%" aria-label="TextBox with placeholder" />
+</RadzenCard>
+
+<RadzenButton Click=saveData Text="حفظ" Icon="save" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" class="rz-border-radius-10 rz-shadow-4" />
+
+@* <RadzenButton Click=OpenDialog Text="إضافة مدينة" Icon="add" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" class="rz-border-radius-10 rz-shadow-4" />
+ *@
+
+@code {
+
+    City c = new City();
+    void saveData()
+    {
+        db.Cities.Add(c);
+        db.SaveChanges();
+        int x = 8;
+        c = new City();
+    }
+    // public async Task OpenDialog()
+    // {
+    //     var x = await dialogService.OpenAsync<UpsertCity>($"City ",
+    //            new Dictionary<string, object>() { },
+    //            new DialogOptions()
+    //            {
+    //                Resizable = false,
+    //                Draggable = false,
+    //                Width = "700px",
+    //                Height = "512px",
+    //            });
+    // }
+}

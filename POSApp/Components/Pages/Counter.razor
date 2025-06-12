@@ -1,8 +1,9 @@
 ﻿@page "/counter"
 @using POSApp.Data
 @using POSApp.Models
-@inject ApplicationDbContext dbContext;
+@inject ApplicationDbContext db;
 @rendermode InteractiveServer
+@inject DialogService dialogService
 
 <PageTitle>Counter</PageTitle>
 
@@ -13,26 +14,40 @@
 
 <RadzenButton Click=IncrementCount Icon="smartphone" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" class="rz-border-radius-10 rz-shadow-4" />
 <RadzenButton Click=AddProduct Text="إضافة" Icon="smartphone" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" class="rz-border-radius-10 rz-shadow-4" />
-<button class="btn btn-primary" @onclick="IncrementCount">Click me
+<button class="btn btn-primary" @onclick="IncrementCount">Add City
 
 </button>
 
 @code {
-    private int currentCount = 0;
+    private int currentCount = 10;
     private void IncrementCount()
     {
-        currentCount++;
-    }
-    private void AddProduct()
-    {
-        Product p = new Product();
-        p.Name = "wrewrwe";
-        p.Barcode = "e6456547";
-        p.Price = 6;
 
-       
-            string q = " insert into Productt values()";
-        dbContext.Products.Add(p);
-        dbContext.SaveChanges();
+        List<City> cities = db.Cities.ToList();
+
+
+        City c = new City();
+        c.CityName = "Zliten" ;
+        db.Cities.Add(c);
+
+        // Client client = new Client();
+        // client.FullName = "Ahmed";
+        // client.Email = "ahmed@gmail.com";
+        // db.Clients.Add(client);
+
+        // db.SaveChanges();
+        
+
+        // // select * from Cities where Id = 1
+        // City city = db.Cities.FirstOrDefault(i=> i.Id==11);
+        // //city.CityName = "Zliten";
+        // db.Cities.Remove(city);
+        // db.SaveChanges();
+    }
+    private async Task AddProduct()
+    {
+        // await dialogService.OpenAsync<EditOffice>("مكتب جديد",
+        //          new Dictionary<string, object>() { { "Id", null }, { "dialogService", dialogService } },
+        //          new DialogOptions() { Width = "400px", Height = "350px", Resizable = false, Draggable = false, ShowClose = false });
     }
 }

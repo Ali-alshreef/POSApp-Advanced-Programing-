@@ -1,0 +1,53 @@
+﻿@page "/Clients"
+@using POSApp.Data
+@using POSApp.Models
+@rendermode InteractiveServer
+@inject DialogService dialogService
+@inject ApplicationDbContext db;
+
+
+<h1>List Of clients </h1>
+
+<div class="card-body">
+    <div class="row">
+        <div class="col-3 pb-2">
+            <RadzenTextBox @bind-Value=client.FullName Placeholder="Full Name" Style="width: 100%" aria-label="TextBox with placeholder" />
+        </div>
+        <div class="col-3 pb-2">
+            <RadzenTextBox @bind-Value=client.UserName Placeholder="UserName" Style="width: 100%" aria-label="TextBox with placeholder" />
+        </div>
+        <div class="col-3">
+            <RadzenTextBox @bind-Value=client.Email Placeholder="Email" Style="width: 100%" aria-label="TextBox with placeholder" />
+        </div>
+        <div class="col-3">
+            <RadzenCheckBox @bind-Value=client.Active />
+        </div>
+    </div>
+</div>
+
+<RadzenButton Click=saveData Text="حفظ" Icon="save" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" class="rz-border-radius-10 rz-shadow-4" />
+@foreach(var i in clients)
+{
+    <h5>@i.FullName</h5>
+    <h5>@i.Email</h5>
+    <h1>==============================</h1>
+}
+
+@code {
+    Client client = new Client();
+    List<Client> clients ;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        clients = db.Clients.ToList();
+    }
+     
+    void saveData()
+    {
+        db.Clients.Add(client);
+        db.SaveChanges();
+        int x = 8;
+        client = new Client();
+    }
+}
