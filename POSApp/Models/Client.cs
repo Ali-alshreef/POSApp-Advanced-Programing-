@@ -10,6 +10,10 @@ namespace POSApp.Models
 
         public bool Active { get; set; }
 
+        public int? CityId { get; set; }
+        public City City { get; set; }
+
+
         [NotMapped]
         public string UserName 
         { 

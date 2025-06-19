@@ -1,5 +1,24 @@
-﻿<h3>UpsertCity</h3>
+﻿@inject DialogService dialogService
+<h1>إضافة مدينة</h1>
+
+<RadzenButton Click=Close Icon="save" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" class="rz-border-radius-10 rz-shadow-4" />
 
 @code {
 
+    [Parameter]
+    public int Id { get; set; }
+
+    public int c { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        int z = 0;
+    }
+
+    void Close()
+    {
+        dialogService.Close();
+    }
 }

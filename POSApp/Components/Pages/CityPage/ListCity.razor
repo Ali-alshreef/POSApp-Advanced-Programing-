@@ -1,41 +1,38 @@
 ﻿@page "/Cities"
+@using Microsoft.EntityFrameworkCore
 @using POSApp.Data
 @using POSApp.Models
-@rendermode InteractiveServer
 @inject DialogService dialogService
 @inject ApplicationDbContext db;
 
 <h1>List Of Cities </h1>
 
-<RadzenCard>
-    <RadzenTextBox @bind-Value=c.CityName Placeholder="City Name" Style="width: 100%" aria-label="TextBox with placeholder" />
-</RadzenCard>
+<RadzenButton Click=OpenDialog Text="New City" Icon="save" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" class="rz-border-radius-10 rz-shadow-4" />
 
-<RadzenButton Click=saveData Text="حفظ" Icon="save" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" class="rz-border-radius-10 rz-shadow-4" />
-
-@* <RadzenButton Click=OpenDialog Text="إضافة مدينة" Icon="add" ButtonStyle="ButtonStyle.Primary" Size="ButtonSize.Large" class="rz-border-radius-10 rz-shadow-4" />
- *@
 
 @code {
 
-    City c = new City();
-    void saveData()
+
+    protected override void OnInitialized()
     {
-        db.Cities.Add(c);
-        db.SaveChanges();
-        int x = 8;
-        c = new City();
+        base.OnInitialized();
+        int  c = 5;
+
+        var cities1 = db.Cities.ToList();
+        var cities = db.Cities.ToList();
     }
-    // public async Task OpenDialog()
-    // {
-    //     var x = await dialogService.OpenAsync<UpsertCity>($"City ",
-    //            new Dictionary<string, object>() { },
-    //            new DialogOptions()
-    //            {
-    //                Resizable = false,
-    //                Draggable = false,
-    //                Width = "700px",
-    //                Height = "512px",
-    //            });
-    // }
+
+    public async Task OpenDialog()
+    {
+        await dialogService.OpenAsync<UpsertCity>($"City ",
+               new Dictionary<string, object>() { { "Id", 5 } },
+               new DialogOptions()
+               {
+                  ShowClose = false,
+                   Resizable = true,
+                   Draggable = true,
+                  Width = "400px",
+                  Height = "350px",
+               });
+    }
 }
